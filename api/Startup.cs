@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using api.Data;
 using api.Extensions;
 using api.Interfaces;
+using api.Middleware;
 using api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -41,10 +42,13 @@ namespace api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            /*
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            */
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseHttpsRedirection();
             app.UseRouting();
