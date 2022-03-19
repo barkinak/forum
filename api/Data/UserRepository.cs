@@ -22,6 +22,11 @@ namespace api.Data
             _context = context;
         }
 
+        public Task<MemberDto> GetMemberAsync(string username)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<MemberDto> GetMemberByNameAsync(string username)
         {
             return await _context.Users
