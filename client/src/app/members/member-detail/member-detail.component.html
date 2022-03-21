@@ -1,9 +1,12 @@
-<div class="row" *ngIf="member">
+<div class="row">
     <div class="col-4">
         <div class="card">
-            <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.knownAs}}"  
-            class="card-img-top img-thumbnail">
+            <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.knownAs}}" 
+                class="card-img-top img-thumbnail">
             <div class="card-body">
+                <div class="mb-2" *ngIf="(presence.onlineUsers$ | async).includes(member.username)" >
+                    <i class="fa fa-user-circle text-success"></i> Online now
+                </div>
                 <div>
                     <strong>Location:</strong>
                     <p>{{member.city}}, {{member.country}}</p>
@@ -18,7 +21,7 @@
                 </div>
                 <div>
                     <strong>Member since:</strong>
-                    <p>{{member.created | date: 'longDate'}}</p>
+                    <p>{{member.created | date: 'dd MMM yyyy'}}</p>
                 </div>
             </div>
             <div class="card-footer">
@@ -42,18 +45,8 @@
                 <h4>Interests</h4>
                 <p>{{member.interests}}</p>
             </tab>
-            <tab heading='Photos' (selectTab)="onTabActivated($event)">
-                <carousel [(activeSlide)]="activeSlideIndex" >
-                    <slide *ngFor="let slide of slides; let index=index">
-                      <img [src]="slide.image" alt="image slide" style="display: block; width: 75%;">
-                      <div class="carousel-caption">
-                      </div>
-                    </slide>
-                  </carousel>
-
-            </tab>
             <tab heading='Messages' (selectTab)="onTabActivated($event)">
-                <app-member-messages [messages]="messages" [username]="member.username"></app-member-messages>
+                <app-member-messages [username]="member.username"></app-member-messages>
             </tab>
         </tabset>
     </div>
