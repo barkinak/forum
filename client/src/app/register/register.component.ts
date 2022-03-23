@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AccountService } from '../_services/account.service';
 import { ToastrService } from 'ngx-toastr';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -33,9 +33,21 @@ export class RegisterComponent implements OnInit {
       city: ['', Validators.required],
       country: ['', Validators.required],
       password: ['', [Validators.required, 
-        Validators.minLength(4), Validators.maxLength(8)]],
+        Validators.minLength(8), Validators.maxLength(8), this.passwordValidator()]],
       confirmPassword: ['', [Validators.required, this.matchValues('password')]]
     })
+  }
+
+  passwordValidator(): ValidatorFn {
+    return (control: AbstractControl) => {
+      var pattern = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)");
+      var password: string = control?.value;
+      if (pattern.test(password)) {
+        return null;
+      } else {
+        return {passwordNotValid: true};
+      }
+    }
   }
 
   matchValues(matchTo: string): ValidatorFn {
