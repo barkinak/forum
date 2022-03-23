@@ -13,3 +13,7 @@
     background-color: #fff;
     border-top: none;
 }
+
+.col-3 {
+    padding-left: unset !important;
+}
