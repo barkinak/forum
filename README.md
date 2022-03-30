@@ -3,7 +3,7 @@ Forum is a social interaction web app which is built using Angular and .NET Core
 A working sample of the app is published to Azure and can be found on this [link](https://forumsocial.azurewebsites.net/). Due to AppService costs of Azure, it might be stopped from time to time. An image of the chat panel is provided below. 
 
 <p align="center">
-  <img align="left" src="https://github.com/barkinak/forum/docs/picture1.png" width="720" title="Chat Page">
+  <img align="left" src="https://github.com/barkinak/forum/blob/main/docs/picture1.png" width="720" title="Chat Page">
 </p>
 
 ### Local testing
