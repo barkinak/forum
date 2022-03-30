@@ -2,40 +2,37 @@
     <div class="card-body"
         #scrollMe
         style="overflow:hidden; height: 508px;"
-        [scrollTop]="scrollMe.scrollHeight"
-    >
+        [scrollTop]="scrollMe.scrollHeight">
+
         <div *ngIf="(messageService.messageThread$ | async)?.length === 0">
             No messages yet... say hi by using the message box below
         </div>
 
-        <ul 
-            *ngIf="(messageService.messageThread$ | async).length > 0" 
-            class="chat">
-            <li *ngFor="let message of (messageService.messageThread$ | async)">
-                <div>
-                    <span class="chat-img float-end">
-                        <img class="rounded-circle" src="{{message.senderPhotoUrl || './assets/user.png'}}" 
-                            alt="{{message.senderUsername}}">
-                    </span>
-                    <div class="chat-body">
-                        <div class="header">
-                            <small class="text-muted">
-                                <span class="fa fa-clock-o">{{message.messageSent | timeago}}</span>
-                                <span class="text-danger" *ngIf="!message.dateRead 
-                                    && message.senderUsername !== username">
-                                    (unread)
-                                </span>
-                                <span class="text-success" *ngIf="message.dateRead 
-                                    && message.senderUsername !== username">
-                                    (read {{message.dateRead | timeago}})
-                                </span>
-                            </small>
+        <div *ngFor="let message of (messageService.messageThread$ | async)">
+            <div class="message" 
+                [ngClass]="{'message-inner': user.username === message.senderUsername, 'message-out': user.username !== message.senderUsername}">
+                <span class="chat-img float-end">
+                    <img class="rounded-circle" src="{{message.senderPhotoUrl || './assets/user.png'}}" 
+                        alt="{{message.senderUsername}}">
+                </span>
+                
+                <div class="message-inner">
+                    <div class="message-body">
+                        <div class="message-content">
+                            <div class="message-text">
+                                <p style="padding: 0%; margin-bottom: 0%;">{{message.content}}</p>
+                            </div>
                         </div>
-                        <p>{{message.content}}</p>
+                    </div>
+                    <div class="message-footer">
+                        <span class="extra-small text-muted">{{message.messageSent | date: 'dd MMM yyyy - hh:mm'}}</span>
                     </div>
                 </div>
-            </li>
-        </ul>
+            </div>
+            <div class="message-divider">
+                <small class="text-muted"></small>
+            </div>
+        </div>
     </div>
 
     <div class="card-footer">

@@ -17,3 +17,8 @@
 .col-3 {
     padding-left: unset !important;
 }
+
+.col-8 {
+    flex: 1 0;
+    width: 100%;
+}
